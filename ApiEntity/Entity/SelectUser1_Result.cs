@@ -10,15 +10,11 @@
 namespace ApiEntity.Entity
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class MVC5
+    public partial class SelectUser1_Result
     {
         public int id { get; set; }
-        public string user_id { get; set; }
         public string username { get; set; }
         public string password { get; set; }
-        public string role { get; set; }
-        public System.DateTime dcd2 { get; set; }
     }
 }

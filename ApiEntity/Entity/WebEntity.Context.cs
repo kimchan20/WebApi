@@ -29,9 +29,18 @@ namespace ApiEntity.Entity
     
         public virtual DbSet<MVC5> MVC5 { get; set; }
     
-        public virtual ObjectResult<SelectUser_Result> SelectUser()
+        public virtual ObjectResult<getUsertoEdit_Result1> getUsertoEdit(Nullable<int> id)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectUser_Result>("SelectUser");
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getUsertoEdit_Result1>("getUsertoEdit", idParameter);
+        }
+    
+        public virtual ObjectResult<SelectUser_Result1> SelectUser()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectUser_Result1>("SelectUser");
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -7,6 +9,7 @@ using System.Web.Http;
 using ApiEntity.Class;
 using ApiEntity.Entity;
 using ApiEntity.Models;
+using NHibernate.Mapping;
 
 namespace ApiEntity.Controllers
 {
@@ -14,6 +17,7 @@ namespace ApiEntity.Controllers
 	{
 		private serverEntity entity = new serverEntity();
 		private JsonConvert jsoncon = new JsonConvert();
+		private AutoGenerate idGenerate = new AutoGenerate();
 
 		//api entity
 		//for Insert User info
@@ -34,8 +38,12 @@ namespace ApiEntity.Controllers
 
 						entity.MVC5.Add(new MVC5()
 						{
+							user_id =  idGenerate.generateUserId().Result,
 							username = user.username.TrimEnd(),
 							password = user.password.TrimEnd(),
+							role = "admin"
+							dcd2 = DateTime.Now,
+
 						});
 						entity.SaveChanges();
 
@@ -96,14 +104,27 @@ namespace ApiEntity.Controllers
 		[HttpGet]
 		public dynamic userlist()
 		{
+			AccountModel amModel = new AccountModel();
+			List<AccountModel.UserModel> userModel = new List<AccountModel.UserModel>();
+			using (entity = new serverEntity())
+			{
+				var modelList = entity.SelectUser().ToList();
+				return modelList;
+			}
+		}
+
+		[Route("api/getEdituser/{id}")]
+		[HttpGet]
+		public dynamic getEdituser(int id)
+		{
 			try
 			{
-				AccountModel amModel = new AccountModel();
-				List<AccountModel.UserModel>  userModel = new List<AccountModel.UserModel>();
 				using (entity = new serverEntity())
 				{
-					var modelResults = entity.SelectUser().ToList();
-					return modelResults;
+					var userid = new SqlParameter("@id", id);
+					var result =
+						entity.Database.SqlQuery<AccountModel.UserModel>("exec getUsertoEdit @id", userid).FirstOrDefault();
+					return result;
 				}
 			}
 			catch (Exception ee)
