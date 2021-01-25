@@ -21,38 +21,52 @@ namespace ApiEntity.Controllers
 
 		//api entity
 		//for Insert User info
-		[Route("api/inserUser/")]
+		[Route("api/insertUser/")]
 		[HttpPost]
-		public string InserUser([FromBody] MVC5 user)
+		public string InserUser([FromBody] user_info user)
 		{
 			string res = "";
 			try
 			{
-				MVC5 utdb = new MVC5();
+				user_info utdb = new user_info();
 				jsoncon = new JsonConvert();
 				using (entity = new serverEntity())
 				{
-					if (!entity.MVC5
-						.Where(x => x.username.Equals(user.username, StringComparison.CurrentCulture)).Any())
-					{
+					//if (!entity.user_info
+					//	.Where(x => x.username.Equals(user.username, StringComparison.CurrentCulture)).Any())
+					//{
 
-						entity.MVC5.Add(new MVC5()
-						{
-							user_id =  idGenerate.generateUserId().Result,
-							username = user.username.TrimEnd(),
-							password = user.password.TrimEnd(),
-							role = "admin"
-							dcd2 = DateTime.Now,
+					//	entity.user_info.Add(new user_info()
+					//	{
+					//		user_id =  idGenerate.generateUserId().Result,
+					//		username = user.username.TrimEnd(),
+					//		password = user.password.TrimEnd(),
+					//		role = "admin",
+					//		dcd2 = DateTime.Now,
 
-						});
-						entity.SaveChanges();
+					//	});
+					//	entity.SaveChanges();
 
-						return "Success";
-					}
-					else
-					{
-						return "Duplicate";
-					}
+					//	return "Success";
+				//	}
+					//else
+				//	{
+					//	return "Duplicate";
+					//}
+
+
+					
+					var useridParameter = new SqlParameter("@userid", user.user_id.ToString());
+					var usernaParameter = new SqlParameter("@username", user.username.ToString());
+					var passwordParameter = new SqlParameter("@password", user.password.ToString());
+					var roleParameter = new SqlParameter("@role", user.role.ToString());
+					var reSqlParameter = new SqlParameter("@res",SqlDbType.VarChar.ToString());
+					reSqlParameter.Direction = ParameterDirection.Output;
+
+					var ss = entity.Database.ExecuteSqlCommand("exec dbo.insertUserInfo @userid, @username, @password, @role",
+					useridParameter,usernaParameter,passwordParameter,roleParameter);
+					return ss.ToString();
+
 				}
 			}
 			catch (Exception ee)
@@ -75,7 +89,7 @@ namespace ApiEntity.Controllers
 				AccountModel accountModel = new AccountModel();
 				using (entity = new serverEntity())
 				{
-					var checklogin = entity.MVC5
+					var checklogin = entity.user_info
 						.Where(x => x.username.Equals(username))
 						.FirstOrDefault();
 					if (checklogin != null)

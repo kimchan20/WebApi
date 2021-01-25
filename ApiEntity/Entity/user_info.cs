@@ -12,7 +12,7 @@ namespace ApiEntity.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class MVC5
+    public partial class user_info
     {
         public int id { get; set; }
         public string user_id { get; set; }

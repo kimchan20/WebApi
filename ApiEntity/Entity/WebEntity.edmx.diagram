@@ -5,7 +5,10 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="16cbfbaa4172405c9cbc477c6cde1e4c" Name="Diagram1" ZoomLevel="124">
-        <EntityTypeShape EntityType="DB_A66A54_dbuserModel.MVC5" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_A66A54_dbuserModel.category_items" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="DB_A66A54_dbuserModel.product_items" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="DB_A66A54_dbuserModel.user_info" Width="1.5" PointX="0.75" PointY="4.75" />
+        <AssociationConnector Association="DB_A66A54_dbuserModel.fk_to_catID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

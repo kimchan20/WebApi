@@ -15,7 +15,7 @@ namespace ApiEntity.Class
 			var res = "";
 			using (serverEntity = new serverEntity())
 			{
-				var lastuser = serverEntity.MVC5.OrderByDescending(x => x.id).Count();
+				var lastuser = serverEntity.user_info.OrderByDescending(x => x.id).Count();
 				string userid = "000000000";
 				int id = Int32.Parse(userid) + (lastuser + 1);
 				res = String.Format("{0:000000000", id);

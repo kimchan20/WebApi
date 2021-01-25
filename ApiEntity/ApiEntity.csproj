@@ -178,15 +178,19 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Class\AutoGenerate.cs" />
     <Compile Include="Class\JsonConvert.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Entity\category_items.cs">
+      <DependentUpon>WebEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\getUsertoEdit_Result.cs">
       <DependentUpon>WebEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\getUsertoEdit_Result1.cs">
       <DependentUpon>WebEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\MVC5.cs">
+    <Compile Include="Entity\product_items.cs">
       <DependentUpon>WebEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\SelectUser1_Result.cs">
@@ -196,6 +200,9 @@
       <DependentUpon>WebEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\SelectUser_Result1.cs">
+      <DependentUpon>WebEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\user_info.cs">
       <DependentUpon>WebEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\WebEntity.Context.cs">
